@@ -7,6 +7,7 @@ import { firestore } from "firebase-admin";
 import { initializeApp } from "firebase-admin/app";
 import session from "express-session";
 import { getSession } from "./firestore";
+import cors from "cors";
 
 dotenv.config();
 const MIN_DELTA = 5;
@@ -20,6 +21,8 @@ initializeApp();
 const fs = firestore().collection("reprai");
 
 const openai = new OpenAI({ apiKey: gptToken });
+
+app.use(cors());
 
 async function fix(text: string) {
   const completion = await openai.chat.completions.create({
