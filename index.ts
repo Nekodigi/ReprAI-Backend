@@ -33,6 +33,11 @@ async function fix(text: string) {
         content:
           "メールの文章として相応しくなるように。分かりにくい箇所、不適切な箇所、文法ミスを修正して。",
       },
+      {
+        role: "system",
+        content:
+          "メールの文章として相応しくなるように。文頭に件名、先方の名前を忘れずに",
+      },
       // {
       //   role: "user",
       //   content: "先日の発表とても楽しかったです。今度飲みにいきませんか?",
@@ -44,10 +49,10 @@ async function fix(text: string) {
       // },
       {
         role: "user",
-        content: text,
+        content: `メールで先方に${text}とメールお送りたい、訂正して`,
       },
     ],
-    model: "gpt-3.5-turbo",
+    model: "gpt-4o",
   });
   return completion.choices[0].message.content;
 }
